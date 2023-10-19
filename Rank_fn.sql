@@ -65,3 +65,23 @@ Count(salary) over ( order by salary rows between 1 preceding and 1 following) a
 sum(salary) over (order by salary rows between 1 preceding and 1 following) as sum
 from emp;
 
+
+- ---------------------------------------------- joins 19/10/2023
+use orders;
+select * from address;
+select * from online_customer;
+
+select customer_id, city, customer_fname, customer_email 
+from address A left join online_customer OC
+on  A.address_id = OC.address_id;
+
+select * from product;
+
+select OC.customer_fname, OC.customer_email, OI.product_quantity, PR.product_price
+from online_customer OC left join order_header OH
+on OC.customer_id = OH.customer_id
+left join order_items OI on OH.order_id = OI.order_id
+left join product PR on  OI.product_id = PR.product_id
+having avg(product_price)>1000;
+
+
